@@ -1,6 +1,6 @@
 [package]
 name = "hbbs"
-version = "1.1.8"
+version = "1.1.12"
 authors = ["rustdesk <info@rustdesk.com>"]
 edition = "2021"
 build = "build.rs"
@@ -26,7 +26,7 @@ clap = "2"
 rust-ini = "0.18"
 minreq = { version = "2.4", features = ["punycode"] }
 machine-uid = "0.2"
-mac_address = "1.1"
+mac_address = "1.1.5"
 whoami = "1.2"
 base64 = "0.13"
 axum = { version = "0.5", features = ["headers"] }
@@ -58,3 +58,13 @@ hbb_common = { path = "libs/hbb_common" }
 [workspace]
 members = ["libs/hbb_common"]
 exclude = ["ui"]
+
+#https://github.com/johnthagen/min-sized-rust
+#https://doc.rust-lang.org/cargo/reference/profiles.html#default-profiles
+[profile.release]
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = true
+#opt-level = 'z' # only have smaller size after strip # Default is 3, better performance
+#rpath = true # Not needed
